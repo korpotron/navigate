@@ -13,8 +13,9 @@ import SwiftUI
     }
 
     struct MainView: View {
-        enum MainChild {
+        enum MainChild: Hashable {
             case details
+            case number(Int)
         }
 
         @State var path: [MainChild] = []
@@ -28,6 +29,7 @@ import SwiftUI
                         Button("Lorem") {
                             action(MainChild.details)
                         }
+                        .buttonStyle(.bordered)
                     }
                 }
                 .padding()
@@ -35,6 +37,8 @@ import SwiftUI
                     switch child {
                     case .details:
                         DetailsView()
+                    case let .number(value):
+                        Text("number \(value)")
                     }
                 }
             }
@@ -42,11 +46,17 @@ import SwiftUI
                 switch child {
                 case .details:
                     path = [.details]
+                case let .number(value):
+                    break
                 }
             }
             .present(for: Int.self) { value, parent in
                 print("main 1 - \(value)")
                 parent(value)
+
+                if !crash {
+                    path += [.number(value)]
+                }
             }
             .present(for: Int.self) { value, parent in
                 print("main 2 - \(value)")
@@ -58,13 +68,20 @@ import SwiftUI
     }
 
     struct DetailsView: View {
+        @Environment(\.present)
+        var present
+
+        @Environment(\.dismiss)
+        var dismiss
+
         var body: some View {
             VStack {
-                PresentActionReader { action in
-                    Text("Details")
-                    Button("Action") {
-                        action(5)
-                    }
+                Text("Details")
+                Button("Present") {
+                    present(5)
+                }
+                Button("Dismiss") {
+                    dismiss()
                 }
             }
             .present(for: Int.self) { value, parent in
