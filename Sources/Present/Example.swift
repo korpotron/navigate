@@ -19,12 +19,12 @@ import SwiftUI
         }
 
         @State var path: [MainChild] = []
-        @State var crash = true
+        @State var chaining = true
 
         var body: some View {
             NavigationStack(path: $path) {
                 VStack {
-                    Toggle("Crash", isOn: $crash)
+                    Toggle("Chaining", isOn: $chaining)
                     PresentActionReader { action in
                         Button("Lorem") {
                             action(MainChild.details)
@@ -52,36 +52,37 @@ import SwiftUI
             }
             .present(for: Int.self) { value, parent in
                 print("main 1 - \(value)")
-                parent(value)
 
-                if !crash {
-                    path += [.number(value)]
+                if chaining {
+                    parent(value)
                 }
             }
             .present(for: Int.self) { value, parent in
                 print("main 2 - \(value)")
-                if crash {
-                    parent(value)
-                }
+                parent(value)
             }
         }
     }
 
     struct DetailsView: View {
-        @Environment(\.present)
-        var present
 
         @Environment(\.dismiss)
         var dismiss
 
+        @State
+        var value = 0
+
         var body: some View {
-            VStack {
-                Text("Details")
-                Button("Present") {
-                    present(5)
-                }
-                Button("Dismiss") {
-                    dismiss()
+            PresentActionReader { present in
+                VStack {
+                    Text("Details \(value)")
+                    Button("Present") {
+                        value += 1
+                        present(value)
+                    }
+                    Button("Dismiss") {
+                        dismiss()
+                    }
                 }
             }
             .present(for: Int.self) { value, parent in
