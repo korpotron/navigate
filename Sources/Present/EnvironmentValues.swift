@@ -1,10 +1,10 @@
 import SwiftUI
 
-public extension EnvironmentValues {
-    private struct PresentActionKey: EnvironmentKey {
-        static let defaultValue: PresentAction = .print
-    }
+struct PresentActionKey: EnvironmentKey {
+    static let defaultValue: PresentAction = .root
+}
 
+public extension EnvironmentValues {
     var present: PresentAction {
         get {
             self[PresentActionKey.self]

@@ -19,7 +19,7 @@ import SwiftUI
         }
 
         @State var path: [MainChild] = []
-        @State var crash = false
+        @State var crash = true
 
         var body: some View {
             NavigationStack(path: $path) {
@@ -92,4 +92,8 @@ import SwiftUI
     }
 
     return RootView()
+        .present(for: Int.self) { object, parent in
+            print("root \(object)")
+            parent(object)
+        }
 }
