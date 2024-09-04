@@ -11,15 +11,13 @@ public extension View {
     @inlinable
     func present<T>(for type: T.Type, block: @escaping (_ object: T, _ parent: PresentAction) -> Void) -> some View {
         PresentActionReader { action in
-            PresentActionReader { action in
-                self.environment(\.present, PresentAction { object in
-                    if let object = object as? T {
-                        block(object, action)
-                    } else {
-                        action(object)
-                    }
-                })
-            }
+            self.environment(\.present, PresentAction { object in
+                if let object = object as? T {
+                    block(object, action)
+                } else {
+                    action(object)
+                }
+            })
         }
     }
 }

@@ -46,7 +46,7 @@ import SwiftUI
                 switch child {
                 case .details:
                     path = [.details]
-                case let .number(value):
+                case .number:
                     break
                 }
             }

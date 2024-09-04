@@ -13,7 +13,11 @@ public struct PresentAction {
 }
 
 public extension PresentAction {
+    static let print: Self = .init { object in
+        print("present | handler missing for \(object)")
+    }
+
     static let fatal: Self = .init { object in
-        fatalError("PresentAction | handler missing for \(object)")
+        fatalError("present | handler missing for \(object)")
     }
 }

@@ -2,7 +2,7 @@ import SwiftUI
 
 public extension EnvironmentValues {
     private struct PresentActionKey: EnvironmentKey {
-        static let defaultValue: PresentAction = .fatal
+        static let defaultValue: PresentAction = .print
     }
 
     var present: PresentAction {
