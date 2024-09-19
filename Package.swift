@@ -1,27 +1,40 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.0
 
 import PackageDescription
 
 let package = Package(
-    name: "Present",
+    name: "Navigate",
     platforms: [
-        .iOS(.v16)
+        .iOS(.v18)
     ],
     products: [
         .library(
-            name: "Present",
+            name: "Navigate",
             targets: [
-                "Present"
+                "Navigate"
+            ]
+        ),
+        .library(
+            name: "Example",
+            targets: [
+                "Example"
             ]
         ),
     ],
     targets: [
         .target(
-            name: "Present"),
+            name: "Navigate"
+        ),
         .testTarget(
-            name: "PresentTests",
+            name: "NavigateTests",
             dependencies: [
-                "Present"
+                "Navigate"
+            ]
+        ),
+        .target(
+            name: "Example",
+            dependencies: [
+                "Navigate"
             ]
         ),
     ]
