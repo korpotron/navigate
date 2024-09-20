@@ -25,7 +25,7 @@ public extension NavigateAction {
     }
 
     static let print: Self = .output { message in
-        print(message)
+        Swift.print(message)
     }
 
     static let `default`: Self = .print

@@ -5,19 +5,19 @@ import PackageDescription
 let package = Package(
     name: "Navigate",
     platforms: [
-        .iOS(.v18)
+        .iOS(.v18),
     ],
     products: [
         .library(
             name: "Navigate",
             targets: [
-                "Navigate"
+                "Navigate",
             ]
         ),
         .library(
             name: "Example",
             targets: [
-                "Example"
+                "Example",
             ]
         ),
     ],
@@ -28,13 +28,13 @@ let package = Package(
         .testTarget(
             name: "NavigateTests",
             dependencies: [
-                "Navigate"
+                "Navigate",
             ]
         ),
         .target(
             name: "Example",
             dependencies: [
-                "Navigate"
+                "Navigate",
             ]
         ),
     ]
