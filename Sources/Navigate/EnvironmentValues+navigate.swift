@@ -2,7 +2,7 @@ import SwiftUI
 
 private struct NavigateKey: @preconcurrency EnvironmentKey {
     @MainActor
-    static let defaultValue: NavigateAction = .fatal
+    static let defaultValue: NavigateAction = .default
 }
 
 public extension EnvironmentValues {

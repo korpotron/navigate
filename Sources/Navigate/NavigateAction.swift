@@ -14,7 +14,19 @@ public struct NavigateAction {
 }
 
 public extension NavigateAction {
-    static let fatal: Self = .init { object in
-        print("fatal \(object)")
+    static func output(_ output: @escaping (String) -> Void) -> Self {
+        .init { object in
+            output("Navigate: unhandled \(type(of: object)).\(object)")
+        }
     }
+
+    static let fatal: Self = .output { message in
+        fatalError(message)
+    }
+
+    static let print: Self = .output { message in
+        print(message)
+    }
+
+    static let `default`: Self = .print
 }
